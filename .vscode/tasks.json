@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildServerAndOpenSwagger",
+            "dependsOn": ["buildServer", "openSwagger"]
+        },
+        {
+            "label": "buildServer",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Server/Server.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildUI",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Application/Application.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run Server",
+            "command": "dotnet",
+            "type": "process",
+            "args": ["watch",
+                "--project",
+                "${workspaceFolder}/src/Server/Server.csproj"
+            ],
+            "isBackground": true
+        },
+        {
+            "label": "Run Application",
+            "command": "dotnet",
+            "type": "process",
+            "args": ["watch",
+                "--project",
+                "${workspaceFolder}/src/Application/Application.csproj"
+            ],
+            "isBackground": true
+        }
+    ]
+}

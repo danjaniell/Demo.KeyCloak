@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "UI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildUI",
+            "program": "${workspaceFolder}/src/Application/bin/Debug/net7.0/Application.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Application",
+            "stopAtEntry": false,
+            "launchBrowser": {
+                "enabled": true,
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildServer",
+            "program": "${workspaceFolder}/src/Server/bin/Debug/net7.0/Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Server",
+            "stopAtEntry": false,
+            "launchBrowser": {
+                "enabled": true,
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}/swagger"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run Application",
+            "configurations": ["Server", "UI"],
+            "stopAll": true
+        }
+    ]
+}
